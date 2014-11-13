@@ -1,0 +1,49 @@
+<div growl></div>
+
+<div class="page-header">
+  <h1 class="text-center">Create Lab</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <form role="form" ng-submit="createLab()">
+      <div class="form-group">
+        <label for="name">Lab Name</label>
+        <input type="text" class="form-control" id="name" ng-model="lab.name" placeholder="Lab Name">
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" class="form-control" id="location" ng-model="lab.location" placeholder="Lab Location">
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description</label><br>
+        <input id="description" type="text" class="form-control" ng-model="lab.description">
+      </div>
+
+      <div class="form-group">
+        <label for="objectives">Objectives</label><br>
+        <input id="objectives" type="text" class="form-control" ng-model="lab.objectives" placeholder="Objectives">
+      </div>
+
+      <div class="form-group">
+        <label for="pages">Number of Pages</label><br>
+        <input id="pages" type="text" class="form-control" ng-model="lab.num_pages" placeholder="Number of Pages">
+      </div>
+
+      <div class="form-group">
+        <label for="duraiton">Duration</label><br>
+        <input id="duraiton" type="text" class="form-control" ng-model="lab.duraiton" placeholder="Duration">
+      </div>
+
+      <div class="form-group">
+        <label for="delivery_methods">Delivery Methods</label><br>
+        <span>{{getNames(lab.deliveryMethods)}}</span> <a ng-show="lab.deliveryMethods.length > 0" ng-click="resetDeliveryMethods()">clear</a>
+        <input type="text" class="form-control" id="delivery_methods" ng-model="tempDeliveryMethod" placeholder="Delivery Methods" typeahead="method.name for method in deliveryMethods | filter:$viewValue | limitTo:8" typeahead-on-select="addDeliveryMethod($item, $model, $label);tempDeliveryMethod=null;">
+      </div>
+      
+      <button type="submit" class="btn btn-default">Create Lab</button>
+    </form>
+  </div>
+</div>

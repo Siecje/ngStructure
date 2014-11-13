@@ -1,0 +1,86 @@
+<div class="page-header">
+  <h1 class="text-center">
+    <input type="text" ng-model="bundle.name" ng-change="bundle.changes=true" placeholder="Bundle Name">
+  </h1>
+</div>
+
+<div class="row" ng-show="bundle.changes">
+  <p class="text-center">
+    <a class="btn btn-success" ng-click="updateBundle()">Save Changes</a>
+  </p>
+</div>
+
+<div class="row">
+  <div class="form-group">
+    <label for="products">Products</label><br>
+    <span>{{getNames(bundle.products)}}</span> <a ng-show="bundle.products.length > 0" ng-click="resetProducts()">clear</a>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="products" ng-model="tempProduct" typeahead="product.name for product in products | filter:$viewValue | limitTo:8" placeholder="Products" typeahead-on-select="addProduct($item, $model, $label);tempProduct=null;">
+  </div>
+
+  <div class="form-group">
+    <label for="delivery_methods">Delivery Methods</label><br>
+    <span>{{getNames(bundle.deliveryMethods)}}</span> <a ng-show="bundle.deliveryMethods.length > 0" ng-click="resetDeliveryMethods()">clear</a>
+    <input type="text" class="form-control" id="delivery_methods" ng-model="tempDeliveryMethod" placeholder="Delivery Methods" typeahead="method.name for method in deliveryMethods | filter:$viewValue | limitTo:8" typeahead-on-select="addDeliveryMethod($item, $model, $label);tempDeliveryMethod=null;">
+  </div>
+</div>
+
+<div class="row">
+  <h2 class="text-center">Modules</h2>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div style="padding: 10px 0px 10px 0px">
+      <input type="text" style="width: 75%" class="form-control" ng-model="searchModules" placeholder="Search Modules">
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h4 class="text-center">Current Modules</h4>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="module" style="overflow: auto; min-height:300px">
+      <div ng-repeat="module in modules | filter: searchModules" style="cursor: pointer;" ng-click="setCurrentModule(module)">
+        <p ng-class="{'bg-primary': isCurrentModule(module), 'bg-info': !isCurrentModule(module)}" style="border-radius: 20px; padding:5px 0px 5px 10px">
+          {{module.name}}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="module" style="overflow: auto; min-height:300px">
+      <div ng-repeat="module in bundle.modules" style="cursor: pointer;" ng-click="setCurrentModule(module)">
+        <p ng-class="{'bg-primary': isCurrentModule(module), 'bg-success': !isCurrentModule(module)}" style="border-radius: 20px;padding:5px 0px 5px 10px">
+          {{module.name}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="padding: 10px 0px 10px 0px">
+  <div class="col-md-10">
+    <h4>{{currentModule.name}}</h4>
+  </div>
+  <hr>
+  <button ng-show="currentModule.name && !moduleInBundle(currentModule)"
+          class="btn btn-success" data-ng-click="addModuleToBundle(currentModule)">
+    <span class="glyphicon glyphicon-plus-sign"></span> Add to Bundle
+  </button>
+  <button ng-show="moduleInBundle(currentModule)" class="btn btn-primary"
+          data-ng-click="removeModuleFromBundle(currentModule)">
+    <span class="glyphicon glyphicon-remove-sign"></span> Remove from Bundle
+  </button>
+  <p><strong>Objectives</strong>: {{currentModule.objectives}}</p>
+  <p><strong>Description</strong>: {{currentModule.description}}</p>
+  <p><strong>Preview</strong>: {{currentModule.preview}}</p>
+  <p><strong>Training Level</strong>: {{getTrainingLevel(currentModule.training_level)}}</p>
+  <p><strong>Duration</strong>: {{currentModule.total_duration | humanizedTime}}</p>
+</div>

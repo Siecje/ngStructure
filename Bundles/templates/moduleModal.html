@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title">Module {{module.name}}</h4>
+</div>
+
+<div class="modal-body">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ModuleName</th>
+        <th class="text-center">{{module.name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Objectives</td>
+        <td class="text-center">{{module.objectives}}</td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td class="text-center">{{module.description}}</td>
+      </tr>
+      <tr>
+        <td>Preview</td>
+        <td class="text-center">{{module.preview}}</td>
+      </tr>
+      <tr>
+        <td>Training Level</td>
+        <td class="text-center">{{getTrainingLevel(module.training_level)}}</td>
+      </tr>
+      <tr>
+        <td>Duration</td>
+        <td class="text-center">{{module.total_duration | humanizedTime}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

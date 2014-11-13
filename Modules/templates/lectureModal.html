@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title">{{lecture.name}}</h4>
+</div>
+
+<div class="modal-body">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Lecture Name</th>
+        <th class="text-center">{{lecture.name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Location</td>
+        <td class="text-center">{{lecture.location}}</td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td class="text-center">{{lecture.description}}</td>
+      </tr>
+      <tr>
+        <td>Objectives</td>
+        <td class="text-center">{{lecture.objectives}}</td>
+      </tr>
+      <tr>
+        <td>Number of Slides</td>
+        <td class="text-center">{{lecture.num_slides}}</td>
+      </tr>
+      <tr>
+        <td>Duration</td>
+        <td class="text-center">{{lecture.duration | humanizedTime}}</td>
+      </tr>
+      <tr>
+        <td>Delivery Methods</td>
+        <td class="text-center">{{getNames(lecture.delivery_methods)}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

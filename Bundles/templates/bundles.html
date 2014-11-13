@@ -1,0 +1,54 @@
+<div growl></div>
+
+<div class="page-header">
+  <h1 class="text-center">Bundles</h1>
+
+</div>
+<div class="row">
+  <div class="col-md-12" ng-init="modules=false">
+    <a ng-show="!modules" ng-click="showBundlesWithoutModules();modules=true;" class="btn btn-info">View Bundles Without Modules</a>
+    <a ng-show="modules" ng-click="resetBundles();modules=false;" class="btn btn-default">Reset Bundles</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <div style="padding: 10px 0px 10px 0px">
+      <input type="text" style="width: 75%" class="form-control" ng-model="searchBundles" placeholder="Search Bundles">
+    </div>
+
+    <div class="module" style="overflow: auto; min-height:400px">
+      <div ng-repeat="bundle in bundles | filter: searchBundles" style="cursor: pointer;" ng-click="setBundle(bundle)">
+          <p ng-class="{'bg-primary': currentBundle===bundle, 'bg-info': currentBundle!==bundle}"
+             style="border-radius: 20px;padding:5px 0px 5px 10px">
+            {{bundle.name}}
+          </p>
+      </div>
+    </div>
+
+    <div style="padding: 10px 0px 10px 0px">
+      <a class="btn btn-primary" href="#/bundles/create">
+        <span class="glyphicon glyphicon-plus"></span> Create New Bundle
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-6" ng-show="isEmpty()">
+    <p>Click on a Bundle to view details.</p>
+  </div>
+
+  <div class="col-md-6" ng-show="!isEmpty()">
+    <h4>{{currentBundle.name}} <a ng-href="#/bundles/{{currentBundle.id}}" style="cursor: pointer;"><span class="glyphicon glyphicon-edit"></span>Edit</a></h4>
+    <hr>
+    <p>{{currentBundle.description}}</p>
+    <p><strong>Products</strong>: {{getNames(currentBundle.products)}}</p>
+    <p><strong>Technologies</strong>: {{getNames(currentBundle.technologies)}}</p>
+    <p><strong>Delivery Methods</strong>: {{getNames(currentBundle.delivery_methods)}}</p>
+    <p><strong>Total Duration</strong>: {{currentBundle.duration | humanizedTime}}</p>
+    <span ng-repeat="module in currentBundle.modules">
+      {{$index + 1}}. <a href ng-click="selectModule(module)">{{module.name}}</a><br>
+    </span><br>
+    <a ng-click="deleteBundleModal()" class="btn btn-danger">Delete Bundle</a>
+  </div>
+</div>

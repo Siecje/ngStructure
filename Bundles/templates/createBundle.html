@@ -1,0 +1,32 @@
+<div growl></div>
+
+<div class="page-header">
+  <h1 class="text-center">Create Bundle</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <form role="form" ng-submit="createBundle()">
+      <div class="form-group">
+        <label for="name">Bundle Name</label>
+        <input type="text" class="form-control" id="name" ng-model="bundle.name" placeholder="Bundle Name">
+      </div>
+      
+      <div class="form-group">
+        <label for="products">Products</label><br>
+        <span>{{getNames(bundle.products)}}</span> <a ng-show="bundle.products.length > 0" ng-click="resetProducts()">clear</a>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="products" ng-model="tempProduct" typeahead="product.name for product in products | filter:$viewValue | limitTo:8" placeholder="Products" typeahead-on-select="addProduct($item, $model, $label);tempProduct=null">
+      </div>
+
+      <div class="form-group">
+        <label for="delivery_methods">Delivery Methods</label><br>
+        <span>{{getNames(bundle.deliveryMethods)}}</span> <a ng-show="bundle.deliveryMethods.length > 0" ng-click="resetDeliveryMethods()">clear</a>
+        <input type="text" class="form-control" id="delivery_methods" ng-model="tempDeliveryMethod" placeholder="Delivery Methods" typeahead="method.name for method in deliveryMethods | filter:$viewValue | limitTo:8" typeahead-on-select="addDeliveryMethod($item, $model, $label);tempDeliveryMethod=null;">
+      </div>
+      
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</div>

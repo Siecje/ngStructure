@@ -1,0 +1,45 @@
+<div class="page-header">
+  <h1 class="text-center">
+    <input type="text" ng-model="lab.name" ng-change="lab.changes=true" placeholder="Lab Name">
+  </h1>
+</div>
+
+<div class="row" ng-show="lab.changes">
+  <p class="text-center">
+    <a class="btn btn-success" ng-click="updateLab()">Save Changes</a>
+  </p>
+</div>
+
+<div class="row">
+  <div class="form-group">
+    <label for="location">Location</label><br>
+    <input id="location" type="text" class="form-control" ng-model="lab.location" ng-change="lab.changes=true">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label><br>
+    <input id="description" type="text" class="form-control" ng-model="lab.description" ng-change="lab.changes=true">
+  </div>
+
+  <div class="form-group">
+    <label for="objectives">Objectives</label><br>
+    <input id="objectives" type="text" class="form-control" ng-model="lab.objectives" ng-change="lab.changes=true" placeholder="Objectives">
+  </div>
+
+  <div class="form-group">
+    <label for="pages">Number of Pages</label><br>
+    <input id="pages" type="text" class="form-control" ng-model="lab.num_pages" ng-change="lab.changes=true" placeholder="Number of Pages">
+  </div>
+
+  <div class="form-group">
+    <label for="duraiton">Duration</label><br>
+    <input id="duraiton" type="text" class="form-control" ng-model="lab.duraiton" ng-change="lab.changes=true" placeholder="Duration">
+  </div>
+
+  <div class="form-group">
+    <label for="delivery_methods">Delivery Methods</label><br>
+    <span>{{getNames(lab.deliveryMethods)}}</span> <a ng-show="lab.deliveryMethods.length > 0" ng-click="resetDeliveryMethods()">clear</a>
+    <input type="text" class="form-control" id="delivery_methods" ng-model="tempDeliveryMethod" placeholder="Delivery Methods" typeahead="method.name for method in deliveryMethods | filter:$viewValue | limitTo:8" typeahead-on-select="addDeliveryMethod($item, $model, $label);tempDeliveryMethod=null;">
+  </div>
+
+</div>

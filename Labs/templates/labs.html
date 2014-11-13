@@ -1,0 +1,60 @@
+<div growl></div>
+
+<div class="page-header">
+  <h1 class="text-center">Labs</h1>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+
+    <div style="padding: 10px 0px 10px 0px">
+      <input type="text" style="width: 75%" class="form-control" ng-model="searchLabs" placeholder="Search Labs">
+    </div>
+
+    <div class="module" style="overflow: auto; min-height:400px">
+      <div ng-repeat="lab in labs | filter: searchLabs" style="cursor: pointer;" ng-click="setLab(lab)">
+          <p ng-class="{'bg-primary': currentLab===lab, 'bg-info': currentLab!==lab}"
+             style="border-radius: 20px;padding:5px 0px 5px 10px">
+            {{lab.name}}
+          </p>
+      </div>
+    </div>
+
+    <div style="padding: 10px 0px 10px 0px">
+      <a class="btn btn-primary" href="#/labs/create">
+        <span class="glyphicon glyphicon-plus"></span> Create New Lab
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-6" ng-show="isEmpty()">
+    <p>Click on a Lab to view details.</p>
+  </div>
+
+  <div class="col-md-6" ng-show="!isEmpty()">
+    <h4>{{currentLab.name}} <a ng-href="#/labs/{{currentLab.id}}" style="cursor: pointer;"><span class="glyphicon glyphicon-edit"></span>Edit</a></h4>
+    <hr>
+    <dl class="dl-horizontal">
+      <dt>Description</dt>
+      <dd>{{currentLab.description}}</dd>
+      <dt>Location</dt>
+      <dd>{{currentLab.location}}</dd>
+      <dt>Objectives</dt>
+      <dd>{{currentLab.objectives}}</dd>
+      <dt>Number of Pages</dt>
+      <dd>{{currentLab.num_pages}}</dt>
+      <dt>Delivery Methods</dt>
+      <dd>{{getNames(currentLab.delivery_methods)}}</dd>
+      <dt>Duration</dt>
+      <dd>{{currentLab.duration | humanizedTime}}</dd>
+      <dt>Modules</dt>
+      <dd>
+        <span ng-repeat="module in currentLab.modules">
+          {{$index + 1}}. <a href ng-click="selectModule(module)">{{module.name}}</a><br>
+        </span><br>
+      </dd>
+    </dl>
+    <a ng-click="deleteLabModal()" class="btn btn-danger">Delete Lab</a>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div growl></div>
+
+<div class="page-header">
+  <h1 class="text-center">Modules</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <div style="padding: 10px 0px 10px 0px">
+      <input type="text" style="width: 75%" class="form-control" ng-model="searchModules" placeholder="Search Modules">
+    </div>
+
+    <div class="module" style="overflow: auto; min-height:400px">
+      <div ng-repeat="module in modules | filter: searchModules" style="cursor: pointer;" ng-click="setModule(module)">
+          <p ng-class="{'bg-primary': currentModule===module, 'bg-info': currentModule!==module}"
+             style="border-radius: 20px;padding:5px 0px 5px 10px">
+            {{module.name}}
+          </p>
+      </div>
+    </div>
+
+    <div style="padding: 10px 0px 10px 0px">
+      <a class="btn btn-primary" href="#/modules/create">
+        <span class="glyphicon glyphicon-plus"></span> Create New Module
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-6" ng-show="isEmpty()">
+    <p>Click on a Module to view details.</p>
+  </div>
+
+  <div class="col-md-6" ng-show="!isEmpty()">
+    <h4>{{currentModule.name}} <a ng-href="#/modules/{{currentModule.id}}" style="cursor: pointer;"><span class="glyphicon glyphicon-edit"></span>Edit</a></h4>
+    <hr>
+    <p>{{currentModule.description}}</p>
+    <p><strong>Products</strong>: {{getNames(currentModule.products)}}</p>
+    <p><strong>Technologies</strong>: {{getNames(currentModule.technologies)}}</p>
+    <p><strong>Delivery Methods</strong>: {{getNames(currentModule.delivery_methods)}}</p>
+    <p><strong>Total Duration</strong>: {{currentModule.duration | humanizedTime}}</p>
+
+    <strong>Labs</strong><br>
+    <span ng-show="currentModule.labs.length === 0">None</span>
+    <span ng-repeat="lab in currentModule.labs">
+      {{$index + 1}}. <a href ng-click="selectLab(lab)">{{lab.name}}</a><br>
+    </span><br>
+
+    <strong>Lectures</strong><br>
+    <span ng-show="currentModule.lectures.length === 0">None</span>
+    <span ng-repeat="lecture in currentModule.lectures">
+      {{$index + 1}}. <a href ng-click="selectLecture(lecture)">{{lecture.name}}</a><br>
+    </span><br>
+
+    <strong>Videos</strong><br>
+    <span ng-show="currentModule.videos.length === 0">None</span>
+    <span ng-repeat="video in currentModule.videos">
+      {{$index + 1}}. <a href ng-click="selectVideo(video)">{{video.name}}</a><br>
+    </span><br><br>
+    <a ng-click="deleteModuleModal()" class="btn btn-danger">Delete Module</a>
+  </div>
+</div>

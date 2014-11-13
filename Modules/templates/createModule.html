@@ -1,0 +1,37 @@
+<div growl></div>
+
+<div class="page-header">
+  <h1 class="text-center">Create Module</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <form role="form" ng-submit="createModule()">
+      <div class="form-group">
+        <label for="name">Module Name</label>
+        <input type="text" class="form-control" id="name" ng-model="module.name" placeholder="Module Name">
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" class="form-control" id="location" ng-model="module.location" placeholder="Module Location">
+      </div>
+      
+      <div class="form-group">
+        <label for="products">Products</label><br>
+        <span>{{getNames(module.products)}}</span> <a ng-show="module.products.length > 0" ng-click="resetProducts()">clear</a>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="products" ng-model="tempProduct" typeahead="product.name for product in products | filter:$viewValue | limitTo:8" placeholder="Products" typeahead-on-select="addProduct($item, $model, $label);tempProduct=null">
+      </div>
+
+      <div class="form-group">
+        <label for="actors">Actors</label><br>
+        <span>{{getNames(module.actors)}}</span> <a ng-show="module.actors.length > 0" ng-click="resetActors()">clear</a>
+        <input type="text" class="form-control" id="actors" ng-model="tempActor" placeholder="Actors" typeahead="actor.name for actor in actors | filter:$viewValue | limitTo:8" typeahead-on-select="addActor($item, $model, $label);tempActor=null;">
+      </div>
+      
+      <button type="submit" class="btn btn-default">Create Module</button>
+    </form>
+  </div>
+</div>

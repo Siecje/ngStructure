@@ -1,0 +1,53 @@
+<div class="page-header">
+  <h1 class="text-center">
+    <input type="text" ng-model="module.name" ng-change="module.changes=true" placeholder="Module Name">
+  </h1>
+</div>
+
+<div class="row" ng-show="module.changes">
+  <div class="col-sm-12">
+    <p class="text-center">
+      <a class="btn btn-success" ng-click="updateModule()">Save Changes</a>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="form-group">
+      <label for="location">Location</label><br>
+      <input id="location" type="text" class="form-control" ng-model="module.location" ng-change="module.changes=true">
+    </div>
+
+    <div class="form-group">
+      <label for="products">Products</label><br>
+      <span>{{getNames(module.products)}}</span> <a ng-show="module.products.length > 0" ng-click="resetProducts()">clear</a>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="products" ng-model="tempProduct" typeahead="product.name for product in products | filter:$viewValue | limitTo:8" placeholder="Products" typeahead-on-select="addProduct($item, $model, $label);tempProduct=null;">
+    </div>
+
+    <div class="form-group">
+      <label for="actors">Actors</label><br>
+      <span>{{getNames(module.actors)}}</span> <a ng-show="module.actors.length > 0" ng-click="resetActors()">clear</a>
+      <input type="text" class="form-control" id="actors" ng-model="tempActor" placeholder="Actors"
+              typeahead="actor.name for actor in actors | filter:$viewValue | limitTo:8"
+              typeahead-on-select="addActor($item, $model, $label);tempActor=null;">
+    </div>
+  </div>
+</div>
+
+<tabset justified="true">
+  <tab heading="Bundles" ng-init="objects=bundles" ng-controller="moduleBundles">
+    <div ng-include="'/app/Modules/templates/moduleObjects.html'"></div>
+  </tab>
+  <tab heading="Labs" ng-init="objects=labs" ng-controller="moduleLabs">
+    <div ng-include="'/app/Modules/templates/moduleObjects.html'"></div>
+  </tab>
+  <tab heading="Lectures" ng-init="objects=lectures" ng-controller="moduleLectures">
+    <div ng-include="'/app/Modules/templates/moduleObjects.html'"></div>
+  </tab>
+  <tab heading="Videos" ng-init="objects=videos" ng-controller="moduleVideos">
+    <div ng-include="'/app/Modules/templates/moduleObjects.html'"></div>
+  </tab>
+</tabset>

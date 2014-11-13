@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-6">
+    <div style="padding: 10px 0px 10px 0px">
+      <input type="text" style="width: 75%" class="form-control" ng-model="search" placeholder="Search {{objectsName}}">
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h4 class="text-center">Module {{objectsName}}</h4>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="module" style="overflow: auto; min-height:300px">
+      <div ng-repeat="obj in objects | filter: search" style="cursor: pointer;" ng-click="setCurrent(obj)">
+        <p ng-class="{'bg-primary': isCurrent(obj), 'bg-info': !isCurrent(obj)}" style="border-radius: 20px; padding:5px 0px 5px 10px">
+          {{obj.name}}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="module" style="overflow: auto; min-height:300px">
+      <div ng-repeat="obj in moduleObjects" style="cursor: pointer;" ng-click="setCurrent(obj)">
+        <p ng-class="{'bg-primary': isCurrent(obj), 'bg-success': !isCurrent(obj)}" style="border-radius: 20px;padding:5px 0px 5px 10px">
+          {{obj.name}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="padding: 10px 0px 10px 0px">
+  <div class="col-sm-12">
+    <div ng-show="current.name">
+      <h4>{{current.name}}</h4>
+      <hr>
+      <button ng-show="current.name && !alreadyInModule(current)"
+            class="btn btn-success" data-ng-click="addToModule(current)" type="button">
+        <span class="glyphicon glyphicon-plus-sign"></span> Add to Module
+      </button>
+      <button ng-show="alreadyInModule(current)" class="btn btn-primary"
+            data-ng-click="removeFromModule(current)" type="button">
+        <span class="glyphicon glyphicon-remove-sign"></span> Remove from Module
+      </button>
+      <p><strong>Objectives</strong>: {{current.objectives}}</p>
+      <p><strong>Description</strong>: {{current.description}}</p>
+      <p><strong>Preview</strong>: {{current.preview}}</p>
+      <p><strong>Training Level</strong>: {{getTrainingLevel(current.training_level)}}</p>
+      <p><strong>Duration</strong>: {{current.total_duration | humanizedTime}}</p>
+    </div>
+  </div>
+</div>
